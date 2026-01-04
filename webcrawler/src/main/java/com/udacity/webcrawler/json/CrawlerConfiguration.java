@@ -2,6 +2,8 @@ package com.udacity.webcrawler.json;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
 import java.time.Duration;
 import java.util.LinkedHashSet;
@@ -177,6 +179,7 @@ public final class CrawlerConfiguration {
   /**
    * A builder class to create {@link CrawlerConfiguration} instances.
    */
+  @JsonPOJOBuilder(withPrefix = "set")
   public static final class Builder {
     private final Set<String> startPages = new LinkedHashSet<>();
     private final Set<String> ignoredUrls = new LinkedHashSet<>();
@@ -194,6 +197,7 @@ public final class CrawlerConfiguration {
      *
      * <p>Does nothing if the given page has already been added. See {@link #getStartPages()}.
      */
+    @JsonProperty("startPages")
     public Builder addStartPages(String... startPages) {
       for (String startPage : startPages) {
         this.startPages.add(Objects.requireNonNull(startPage));
@@ -208,6 +212,7 @@ public final class CrawlerConfiguration {
      *
      * @param patterns one or more regular expressions that define a valid {@link Pattern}.
      */
+    @JsonProperty("ignoredUrls")
     public Builder addIgnoredUrls(String... patterns) {
       for (String pattern : patterns) {
         ignoredUrls.add(Objects.requireNonNull(pattern));
@@ -226,6 +231,7 @@ public final class CrawlerConfiguration {
      *
      * @param patterns one or more regular expressions that define a valid {@link Pattern}.
      */
+    @JsonProperty("ignoredWords")
     public Builder addIgnoredWords(String... patterns) {
       for (String pattern : patterns) {
         ignoredWords.add(Objects.requireNonNull(pattern));

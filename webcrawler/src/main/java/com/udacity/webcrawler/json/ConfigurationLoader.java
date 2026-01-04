@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * A static utility class that loads a JSON configuration file.
  */
@@ -28,6 +29,18 @@ public final class ConfigurationLoader {
    * @return the loaded {@link CrawlerConfiguration}.
    */
   public CrawlerConfiguration load() throws IOException {
+    try (Reader reader = Files.newBufferedReader(path)) {
+      return read(reader);
+    }
+  }
+
+  /**
+   * Loads configuration from the given path
+   *
+   * @param path the path to read configuration from
+   * @return the loaded {@link CrawlerConfiguration}.
+   */
+  public CrawlerConfiguration read(Path path) throws IOException {
     try (Reader reader = Files.newBufferedReader(path)) {
       return read(reader);
     }
